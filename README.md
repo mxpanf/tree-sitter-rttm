@@ -7,7 +7,7 @@
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/mxpanf/tree-sitter-rttm?style=flat-square&logo=github">
 </a>
 <a href="#">
-    <img alt="Tree-sitter ABI" src="https://img.shields.io/badge/tree--sitter--ABI-14-blue">
+    <img alt="Tree-sitter ABI" src="https://img.shields.io/badge/tree--sitter--ABI-15-blue">
 </a>
 
 
