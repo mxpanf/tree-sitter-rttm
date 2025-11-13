@@ -6,6 +6,9 @@
 <a href="https://github.com/mxpanf/tree-sitter-rttm">
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/mxpanf/tree-sitter-rttm?style=flat-square&logo=github">
 </a>
+<a href="#">
+    <img alt="Tree-sitter ABI" src="https://img.shields.io/badge/tree--sitter--ABI-14-blue">
+</a>
 
 
 A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for the **RTTM (Rich Transcription Time Marked)** format.
