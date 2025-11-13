@@ -1,15 +1,8 @@
 # Tree Sitter RTTM
 
-<a href="./LICENSE">
-    <img alt="License" src="https://img.shields.io/gitlab/license/mxp-studying/mirea/artificial-intelligence-methods?style=flat-square&logo=opensourceinitiative&logoColor=white">
-</a>
-<a href="https://github.com/mxpanf/tree-sitter-rttm">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/mxpanf/tree-sitter-rttm?style=flat-square&logo=github">
-</a>
-<a href="#">
-    <img alt="Tree-sitter ABI" src="https://img.shields.io/badge/tree--sitter--ABI-15-blue">
-</a>
-
+[![LICENSE](https://img.shields.io/gitlab/license/mxp-studying/mirea/artificial-intelligence-methods?style=flat-square&logo=opensourceinitiative&logoColor=white)](./LICENSE)
+![Last Commit](https://img.shields.io/github/last-commit/mxpanf/tree-sitter-rttm?style=flat-square&logo=github)
+![Tree-sitter ABI](https://img.shields.io/badge/tree--sitter--ABI-15-blue?style=flat-square)
 
 A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammar for the **RTTM (Rich Transcription Time Marked)** format.
 
