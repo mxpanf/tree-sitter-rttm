@@ -1,0 +1,294 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "rttm",
+  "rules": {
+    "source_file": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_line"
+      }
+    },
+    "_line": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "entry"
+        }
+      ]
+    },
+    "entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "event_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "file_id"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "channel"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "start_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "orthography"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "speaker_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "speaker_id"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "confidence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "signal_look_time"
+        }
+      ]
+    },
+    "event_type": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SPEAKER"
+        },
+        {
+          "type": "STRING",
+          "value": "NON_SPEECH"
+        },
+        {
+          "type": "STRING",
+          "value": "LEXEME"
+        }
+      ]
+    },
+    "file_id": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "<NA>"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[A-Za-z0-9._-]+"
+          }
+        ]
+      }
+    },
+    "channel": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "<NA>"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[A-Za-z0-9._-]+"
+          }
+        ]
+      }
+    },
+    "start_time": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+(\\.\\d+)?"
+      }
+    },
+    "duration": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+(\\.\\d+)?"
+      }
+    },
+    "orthography": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_value"
+          },
+          "named": true,
+          "value": "_field"
+        }
+      ]
+    },
+    "speaker_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_value"
+          },
+          "named": true,
+          "value": "_field"
+        }
+      ]
+    },
+    "speaker_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_value"
+          },
+          "named": true,
+          "value": "_field"
+        }
+      ]
+    },
+    "confidence": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number_or_na_value"
+          },
+          "named": true,
+          "value": "_number_or_na"
+        }
+      ]
+    },
+    "signal_look_time": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_value"
+          },
+          "named": true,
+          "value": "_field"
+        }
+      ]
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": ";;.*"
+    },
+    "number": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+(\\.\\d+)?"
+      }
+    },
+    "identifier": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[A-Za-z0-9._-]+"
+      }
+    },
+    "null_literal": {
+      "type": "STRING",
+      "value": "<NA>"
+    },
+    "field_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "null_literal"
+              },
+              "named": true,
+              "value": "_null"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              "named": true,
+              "value": "_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "number_or_na_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "null_literal"
+              },
+              "named": true,
+              "value": "_null"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              "named": true,
+              "value": "_number"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s+"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": [],
+  "reserved": {}
+}
