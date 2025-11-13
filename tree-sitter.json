@@ -1,0 +1,41 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "rttm",
+      "camelcase": "RTTM",
+      "title": "Rich Transcription Time Marked",
+      "scope": "source.rttm",
+      "file-types": [
+        "rttm"
+      ],
+      "injection-regex": "^rttm$",
+      "class-name": "TreeSitterRttm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A Tree-sitter grammar for RTTM files",
+    "authors": [
+      {
+        "name": "Maksim Panfilov",
+        "email": "maks@panf.me",
+        "url": "https://maks.panf.me/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/mxpanf/tree-sitter-rttm",
+      "funding": "https://github.com/sponsors/mxpanf"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
