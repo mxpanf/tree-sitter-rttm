@@ -1,0 +1,112 @@
+================================
+Edge Cases
+================================
+
+;; Test file for valid edge cases.
+;; This checks tricky but valid inputs.
+
+;; 1. Fields with dashes and underscores (testing '_field')
+SPEAKER my_file-01 1 0.0 10.0 <NA> <NA> spk_name-with_dash-and_nums_01 <NA> <NA>
+
+;; 2. Numbers without decimal parts (integers) (testing '_number')
+SPEAKER file_02 1 15 3 <NA> <NA> spk_0 1 <NA>
+
+;; 3. <NA> used in the 'channel' field (which uses '_field')
+SPEAKER file_03 <NA> 20.0 1.5 <NA> <NA> spk_1 <NA> <NA>
+
+;; 4. <NA> used in the 'confidence' field (testing '_number_or_na')
+SPEAKER file_04 1 22.0 1.0 <NA> <NA> spk_1 <NA> <NA>
+
+----
+
+(source_file
+  (comment)
+  (comment)
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_number)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null)))))

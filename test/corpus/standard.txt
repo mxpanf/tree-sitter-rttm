@@ -1,0 +1,82 @@
+================================
+Standard RTTM Entries
+================================
+
+;; 1. Standard Speaker Diarization Entry
+SPEAKER file_001 1 10.5 2.75 <NA> <NA> spk_0 0.95 <NA>
+
+;; 2. Standard Non-Speech Entry
+NON_SPEECH file_001 1 13.25 1.0 music <NA> music_1 <NA> <NA>
+
+;; 3. Standard Lexeme (ASR) Entry
+LEXEME file_001 1 10.5 0.3 hello <NA> spk_0 0.98 <NA>
+
+----
+
+(source_file
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_number)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_identifier)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_identifier)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_number)))
+    (signal_look_time
+      (_field
+        (_null)))))

@@ -1,0 +1,105 @@
+================================
+Mixed Dialects
+================================
+
+;; RTTM Corpus Test File
+;; Standard entries plus inline comment coverage.
+
+SPEAKER file_ABC 1 30.5 2.5 <NA> <NA> spk_0 0.95 <NA>
+NON_SPEECH file_ABC 1 33.0 1.0 music <NA> music_1 <NA> <NA>
+LEXEME file_ABC 1 35.1 0.25 hello <NA> spk_0 0.88 <NA>
+
+;; Inline note after diarization entry
+SPEAKER file_ABC 1 40 1 <NA> <NA> spk_1 <NA> <NA> ;; overlaps with music
+
+----
+
+(source_file
+  (comment)
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_number)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_identifier)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_identifier)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_number)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment)
+  (entry
+    (event_type)
+    (file_id)
+    (channel)
+    (start_time)
+    (duration)
+    (orthography
+      (_field
+        (_null)))
+    (speaker_type
+      (_field
+        (_null)))
+    (speaker_id
+      (_field
+        (_identifier)))
+    (confidence
+      (_number_or_na
+        (_null)))
+    (signal_look_time
+      (_field
+        (_null))))
+  (comment))
