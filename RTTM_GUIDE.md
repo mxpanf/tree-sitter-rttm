@@ -1,155 +1,262 @@
-# RTTM: A Detailed Specification
+# RTTM: Rich Transcription Time Marked
+
+### Full Specification (NIST-Compatible + Extended NON-SPEECH Convention)
 
 ## 1. Introduction
 
-RTTM stands for **Rich Transcription Time Marked**. It is an open, plain-text specification format originally developed by the **National Institute of Standards and Technology (NIST)**.
+RTTM (**Rich Transcription Time Marked**) is a space-delimited, UTF-8 text format created by the **National Institute of Standards and Technology (NIST)**.
+It is used to describe time-aligned events in audio (and occasionally video) recordings — including speech turns, lexical items, non-speech events, and metadata.
 
-Its primary purpose is to store time-marked annotations of audio or video data, created either by humans or by automated systems. It is most famously used in NIST's "Rich Transcription" (RT) evaluations, particularly for scoring **speaker diarization** (the task of identifying "who spoke when").
+RTTM is employed in NIST evaluations such as **Rich Transcription (RT)**, **OpenKWS**, and **OpenSAT**.
+The format is public domain and can be implemented freely.
 
-As a format specified by a U.S. government agency for research, RTTM is in the **public domain**, is not encumbered by patents, and can be freely implemented in any tool.
+This document describes:
 
-## 2. Format Overview
+1. The **canonical NIST RTTM format** (10 mandatory fields)
+2. All **standard RTTM object types** from RT/MDE and KWS15
+3. A **strict interpretation** appropriate for validation and tooling
+4. A **clean extension** for NON-SPEECH events:
 
-At its core, RTTM is a simple, space-delimited text format.
+   * Field 6 (`orthography`) → fine-grained noise label (e.g. `keyboard`, `door_slam`)
+   * Field 7 (`stype`) → coarse category: `noise`, `music`, `other`
 
-* **File Encoding:** UTF-8.
-* **Structure:** Each valid, non-comment line represents a single time-based event.
-* **Fields:** Every event line **must** contain exactly **10 fields**, separated by one or more spaces or tabs. Multiple spaces between fields are fine.
-* **Null Values:** Fields that are not applicable or have no value *must* use the literal string `<NA>`.
-* **Token form:** Except for `<NA>`, all non-numeric fields are single whitespace-free tokens. UTF-8 text is allowed (e.g. accents, apostrophes, slashes), but semicolons mark the start of comments and therefore cannot appear in field contents.
-* **Identifiers:** File IDs traditionally follow `[A-Za-z0-9._-]+`. Speaker IDs and other metadata use the same character set in the original NIST corpora, but the grammar also accepts any other non-whitespace token so modern toolchains can attach richer tags.
-
-## 3. Field-by-Field Specification
-
-This table details all 10 mandatory fields in the order they must appear.
-
-| # | Field Name | Permitted Values | Notes |
-| :--- | :--- | :--- | :--- |
-| 1 | `Type` | One of `SPKR-INFO`, `TURN`, `SEGMENT`, `SPEAKER`, `FU`, `SU`, `LEXEME`, `NON-LEX`, `NON_SPEECH`, `NON-SPEECH` | Hyphenated and underscored `NON[-_]SPEECH` both appear in the wild. Each type changes the semantics of fields 6–10. |
-| 2 | `File ID` | `<NA>` or a single token matching `[A-Za-z0-9._-]+` | Usually the basename of the recording. `<NA>` appears in synthetic examples. |
-| 3 | `Channel` | `<NA>` or a non-negative integer | Channel numbers are 1-indexed in NIST corpora. Use `<NA>` for mono or unknown channels. |
-| 4 | `Onset` | Floating-point number or `<NA>` | `<NA>` is legal for metadata records (`SPKR-INFO`, some `TURN` descriptions). Times are measured in seconds from the start of the file and must be non-negative. |
-| 5 | `Duration` | Floating-point number or `<NA>` | `<NA>` is legal for metadata records. Duration is in seconds and must be non-negative. |
-| 6 | `Orthography` | `<NA>` or any non-whitespace token (UTF-8) without semicolons | Contains transcribed words, event mnemonics, or other descriptors. |
-| 7 | `Speaker Type / Subset` | `<NA>` or any non-whitespace token (UTF-8) without semicolons | Used for demographic tags (e.g., `adult`, `child`) or subset labels. |
-| 8 | `Speaker ID` | `<NA>` or any non-whitespace token (UTF-8) without semicolons | Identifies the speaker, entity, or event label. |
-| 9 | `Confidence` | Floating-point number or `<NA>` | Confidence is typically between 0 and 1, but the spec does not clamp the range. |
-| 10 | `SLAT` | Floating-point number or `<NA>` | "Signal Lookahead Time"; legacy scoring field that is almost always `<NA>`. |
-
-### 3.1. Event types in detail
-
-The `Type` field drives how the remaining columns should be interpreted:
-
-* **`SPKR-INFO`** — Speaker metadata (gender, dialect, etc.). Timing fields are `<NA>`.
-* **`TURN`** — Turn boundaries for conversation analysis.
-* **`SEGMENT`** — Generic segmentation boundaries (often used for manual annotations).
-* **`SPEAKER`** — Diarization segments indicating who is speaking.
-* **`FU`** — Minimal *functional units* used in some MDE corpora.
-* **`SU`** — *Sentence units* (a higher-level grouping of `FU` records).
-* **`LEXEME`** — Lexical items (typically ASR word outputs).
-* **`NON-LEX`** — Non-lexical vocalizations (laughter, breath, cough, etc.).
-* **`NON_SPEECH` / `NON-SPEECH`** — Environmental non-speech events (music, noise, silence).
-
-#### Why you might see fewer than 10 tokens in the wild
-
-Occasionally official corpora circulate with only 8 or 9 tokens per row. Those files are malformed: the author dropped one or more trailing `<NA>` placeholders. NIST tooling (and this grammar) expect all ten fields to be present, even when a column's value is `<NA>`. If you encounter such data, pad the missing columns with `<NA>` before attempting to parse it.
+The extension is backward-compatible with NIST’s structure.
 
 ---
 
-## 4. Common "Dialects" & Use Cases
+## 2. Line Structure
 
-The meaning of the fields (especially `Orthography` and `Speaker ID`) changes based on the `Type` (Field 1). This creates three common "dialects" for RTTM.
+Every non-comment, non-blank line represents a **single RTTM record**.
 
-### 4.1. Speaker Diarization (The most common use)
+* Exactly **10 whitespace-separated fields**
+* Fields that are unknown or not applicable MUST use `<NA>` (uppercase)
+* Comments begin with `;;` and extend to the end of the line
+* Inline comments are allowed
+* Tokens cannot contain spaces; semicolons cannot appear inside tokens
 
-This is the classic RTTM use case: marking speech segments for different speakers.
-
-* `Type` is **`SPEAKER`**.
-* `Orthography` (Field 6) is almost always **`<NA>`**, as the content of the speech is not the focus.
-* `Speaker ID` (Field 8) is the **key information**, identifying the speaker.
-
-**Example:**
-```rttm
-SPEAKER file_01 1 10.34 2.15 <NA> <NA> spk_0 <NA> <NA>
-SPEAKER file_01 1 12.80 0.90 <NA> <NA> spk_1 <NA> <NA>
-```
-
-### 4.2. Non-Speech and Non-Lexical Events
-
-Use these records to describe sounds that are not lexical speech.
-
-* `Type` is **`NON_SPEECH`** (or the hyphenated form `NON-SPEECH`) for environmental audio such as `music`, `applause`, or `noise`.
-* `Type` is **`NON-LEX`** for vocalizations like laughter or breath that you wish to separate from spoken words.
-* `Orthography` (Field 6) contains a short mnemonic (`music`, `laughter`, `cough`).
-* `Speaker ID` (Field 8) often captures the noise source or repeats the speaker label.
-
-**Example:**
-```rttm
-NON_SPEECH file_01 1 14.00 5.0 music <NA> stage <NA> <NA>
-NON-LEX file_01 1 19.00 0.5 laughter <NA> spk_1 <NA> <NA>
-```
-
-### 4.3. Lexical Transcription (ASR Output)
-
-This dialect is used to mark the time of individual words, as generated by an Automatic Speech Recognition (ASR) system.
-
-* `Type` is **`LEXEME`**.
-* `Orthography` (Field 6) is the **key information**, containing the transcribed word.
-* `Speaker ID` (Field 8) identifies the speaker of that word.
-* `Confidence` (Field 9) is often used here.
-
-**Example:**
-```rttm
-LEXEME file_01 1 10.34 0.25 hello <NA> spk_0 0.98 <NA>
-LEXEME file_01 1 10.60 0.30 world <NA> spk_0 0.95 <NA>
-```
-
-### 4.4. Metadata rows (`SPKR-INFO`, `TURN`, `SEGMENT`)
-
-These records carry contextual information rather than time-aligned speech content.
-
-* Timing columns are `<NA>` for `SPKR-INFO` and often `<NA>` when the boundary is unknown.
-* `Orthography` (field 6) stores the speaker identifier or turn label.
-* `Speaker Type` (field 7) captures attributes such as gender, dialect, or channel class.
-* `Speaker ID` (field 8) can repeat the speaker tag (for convenience) or encode higher-level grouping.
-
-Because the structure is still ten columns wide, downstream tooling can safely skip unneeded metadata by filtering on `Type`.
-
-### 4.5. Functional and Sentence Units (`FU`, `SU`)
-
-Functional (`FU`) and sentence (`SU`) units are primarily used by the Multiple Discourse Evaluation (MDE) corpora. They mark discourse-level segments on top of diarization records.
-
-* `Orthography` (field 6) stores a mnemonic (e.g., `backchannel`, `statement`).
-* `Speaker Type` is usually `<NA>`.
-* `Speaker ID` carries the diarization label that the unit belongs to.
+Blank lines are ignored.
 
 ---
 
-## 5. Validation Checklist
+## 3. Required Fields (1–10)
 
-When producing or reviewing RTTM files, verify the following:
+This is the authoritative RTTM column order (from NIST KWS15 and RT/MDE):
 
-1. **Exactly 10 tokens** (separated by whitespace) appear on every non-comment, non-blank line. If you see fewer than ten, one of the `<NA>` placeholders was omitted and the line is invalid.
-2. **Numeric fields** (`Onset`, `Duration`, `Confidence`, `SLAT`) use a dot (`.`) as the decimal separator and can omit the fractional part (`15` is valid for `15.0`). Scientific notation (e.g., `3e-1`) is legal.
-3. **Timing non-negativity:** When numeric, `Onset` and `Duration` are measured from the start of the recording and therefore must be greater than or equal to zero.
-4. **Metadata timing**: For `SPKR-INFO`, and in rare cases for `TURN`/`SEGMENT`, both `Onset` and `Duration` legitimately contain `<NA>`. Do not drop the columns.
-5. **Identifiers contain no spaces**. If a tooling pipeline needs richer tags, it must still encode them as a single token (for example, replace whitespace with underscores or use slashes).
-6. **`<NA>` is uppercase** and never quoted. Any other representation (`NA`, `None`, `null`) is invalid.
-7. **Comments** always begin with `;;`. If you need to annotate an entry inline, append `;; note...` after the tenth field or at the previous line.
+| #  | Field Name (NIST) | Grammar field      | Description                             |
+| -- | ----------------- | ------------------ | --------------------------------------- |
+| 1  | `Type`            | `event_type`       | RTTM object type (see Section 4)        |
+| 2  | `file`            | `file_id`          | Recording identifier                    |
+| 3  | `chnl`            | `channel`          | Channel number (1-indexed) or `<NA>`    |
+| 4  | `tbeg`            | `start_time`       | Onset time in seconds                   |
+| 5  | `tdur`            | `duration`         | Duration in seconds                     |
+| 6  | `ortho`           | `orthography`      | Word / noise descriptor / unit mnemonic |
+| 7  | `stype`           | `speaker_type`     | Type-dependent subtype                  |
+| 8  | `name`            | `speaker_id`       | Speaker or object label                 |
+| 9  | `conf`            | `confidence`       | Confidence score (float)                |
+| 10 | `Slat`            | `signal_look_time` | Legacy “signal lookahead time”          |
 
-Following this checklist keeps the files compatible with both the original NIST scoring tools and modern parsers such as this Tree-sitter grammar.
+### Notes
+
+* Numeric fields accept floats and scientific notation (`3e-1`)
+* Leading/trailing whitespace is ignored
+* All ten fields **must** be present even if `<NA>`
+
+---
+
+## 4. Standard RTTM Object Types
+
+This guide supports the **union** of object types from:
+
+* NIST KWS15 / OpenKWS
+* NIST RT / MDE evaluations
+
+Non-standard / deprecated object types are intentionally omitted.
+
+### 4.1 Canonical Types (strict)
+
+```
+SPKR-INFO
+TURN
+SEGMENT
+SPEAKER
+FU
+SU
+LEXEME
+NON-LEX
+NON-SPEECH
+NOSCORE
+```
+
+### 4.2 Description of each type
+
+#### `SPKR-INFO`
+
+Speaker metadata record.
+`tbeg`, `tdur` are `<NA>`.
+`stype` and `name` contain demographic attributes and speaker IDs.
+
+#### `TURN`
+
+Conversation-level turn boundaries (RT evaluations).
+
+#### `SEGMENT`
+
+Manual or automatic segmentation boundaries.
+
+#### `SPEAKER`
+
+Diarization units (“who spoke when”).
+Typically:
+
+```
+SPEAKER file 1 12.34 1.25 <NA> <NA> spk1 <NA> <NA>
+```
+
+#### `FU` — Functional Units
+
+Used in MDE corpora: minimal discourse units.
+
+#### `SU` — Sentence Units
+
+Higher-level discourse grouping.
+
+#### `LEXEME`
+
+Lexical items (ASR outputs).
+`ortho` = the actual word.
+`confidence` is heavily used.
+
+#### `NON-LEX`
+
+Non-lexical vocalizations (e.g. `laughter`, `breath`, `cough`).
+
+#### `NON-SPEECH`
+
+Environmental noise (music, background noise, doors, keyboard, traffic).
+NIST constrains `stype ∈ {noise, music, other}`.
+We extend the format as follows (Section 5).
+
+#### `NOSCORE`
+
+Regions excluded from scoring (KWS/OpenKWS evaluations).
+
+---
+
+## 5. Extended NON-SPEECH Convention (This Repository)
+
+To preserve strict NIST compatibility while supporting detailed acoustic annotation, this repository adopts the following **structured extension**:
+
+### For `NON-SPEECH` records:
+
+| Field             | Meaning                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| 6 (`orthography`) | **fine-grained noise label** (e.g. `keyboard`, `door_slam`, `music_intro`, `traffic_heavy`) |
+| 7 (`stype`)       | **coarse category** — MUST be one of: `noise`, `music`, `other`                             |
+| 8 (`name`)        | Optional source label (e.g. `roomA`, `stage`) or `<NA>`                                     |
+
+This preserves:
+
+* the official KWS15 column semantics
+* the canonical subtype set
+* the strict 10-column format
+
+but provides richer real-world annotation.
+
+### Example:
+
+```rttm
+NON-SPEECH file_01 1 14.00 5.0 music_intro music <NA> 0.60 <NA>
+NON-SPEECH file_01 1 19.50 0.8 keyboard_clicks noise <NA> 0.40 <NA>
+NON-SPEECH file_01 1 21.00 1.2 door_slam noise <NA> 0.55 <NA>
+```
+
+Compatible with both NIST tools and extended tooling (e.g., LSP, visualizers).
+
+---
 
 ## 6. Comments
 
-RTTM files can contain comments.
+* A comment line begins with **`;;`**
+* Inline comments are permitted after the 10th field
+* Example:
 
-* Any line beginning with two semicolons (`;;`) is considered a comment and must be ignored by parsers.
-* Inline comments are permitted: a comment that follows a valid event on the same line is treated as a separate comment line. This is common when annotators tack on notes at the end of an entry.
-* Comments may be indented, may appear between blank lines, and can contain arbitrary text.
-
-**Example:**
 ```rttm
-;; This is a file-level comment.
-SPEAKER file_01 1 10.34 2.15 <NA> <NA> spk_0 <NA> <NA> ;; raw diarization output
-    ;; Processed by NIST-Tool v5 on 2025-11-13
+;; File-level comment
+SPEAKER rec1 1 10.34 2.15 <NA> <NA> spk1 <NA> <NA> ;; diarization
 ```
+
+---
+
+## 7. Validation Rules
+
+A line is valid RTTM if and only if:
+
+1. It contains **exactly 10 fields**
+2. All mandatory fields follow NIST semantics
+3. Numeric fields (if not `<NA>`) are valid numbers
+4. `tbeg ≥ 0`, `tdur ≥ 0`
+5. `<NA>` is uppercase and unquoted
+6. No field contains spaces or semicolons
+
+This grammar is strict:
+If a line contains 8 or 9 tokens, it is **invalid** and must be padded with `<NA>`.
+
+---
+
+## 8. Examples
+
+### 8.1 Minimal diarization
+
+```rttm
+SPEAKER rec1 1 10.34 1.25 <NA> <NA> spk1 <NA> <NA>
+SPEAKER rec1 1 11.70 2.00 <NA> <NA> spk2 <NA> <NA>
+```
+
+### 8.2 Lexical (ASR)
+
+```rttm
+LEXEME rec1 1 10.34 0.22 hello <NA> spk1 0.98 <NA>
+LEXEME rec1 1 10.56 0.31 world <NA> spk1 0.96 <NA>
+```
+
+### 8.3 Non-lexical
+
+```rttm
+NON-LEX rec1 1 14.50 0.50 laughter <NA> spk2 0.80 <NA>
+```
+
+### 8.4 NON-SPEECH (extended noise labels)
+
+```rttm
+NON-SPEECH rec1 1 5.00 1.20 keyboard noise <NA> 0.60 <NA>
+NON-SPEECH rec1 1 7.00 3.00 music_intro music <NA> 0.70 <NA>
+```
+
+### 8.5 Metadata
+
+```rttm
+SPKR-INFO rec1 <NA> <NA> <NA> spk1 male adult <NA> <NA>
+SEGMENT rec1 1 0.00 30.00 sceneA <NA> global <NA> <NA>
+NOSCORE rec1 1 12.00 4.00 <NA> <NA> <NA> <NA> <NA>
+```
+
+---
+
+## 9. Summary
+
+This guide specifies:
+
+* A **strict, NIST-compliant RTTM format**
+* A unified set of RTTM object types from RT, MDE, and KWS15
+* A clean, minimal, and safe **extension** for NON-SPEECH that:
+
+  * preserves NIST subtype semantics
+  * supports fine-grained real-world noise labels
+  * remains compatible with legacy tools
+
+This ensures the RTTM files you produce:
+
+* validate cleanly
+* interoperate with NIST toolchains
+* support richer downstream analysis
+* align fully with this repository’s grammar and editor tooling

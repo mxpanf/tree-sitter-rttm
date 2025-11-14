@@ -6,7 +6,7 @@ Standard RTTM Entries
 SPEAKER file_001 1 10.5 2.75 <NA> adult speaker_alpha 0.95 <NA>
 
 ;; 2. Standard Non-Speech Entry
-NON_SPEECH file_001 1 13.25 1.0 car-horn <NA> noise_event <NA> <NA>
+NON-SPEECH file_001 1 13.25 1.0 car-horn <NA> noise_event <NA> <NA>
 
 ;; 3. Standard Lexeme (ASR) Entry
 LEXEME file_001 1 10.5 0.3 café <NA> speaker_alpha 0.98 <NA>

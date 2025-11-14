@@ -13,7 +13,7 @@ FU meeting 1 0.00 0.80 backchannel <NA> speaker_beta <NA> <NA>
 SU meeting 1 0.00 2.50 statement <NA> speaker_alpha <NA> <NA>
 LEXEME meeting 1 0.10 0.30 roadmap <NA> speaker_alpha 0.92 <NA>
 NON-LEX meeting 1 0.45 0.15 laughter <NA> speaker_alpha <NA> <NA>
-NON_SPEECH meeting 1 2.50 1.25 applause <NA> audience <NA> <NA>
+NON-SPEECH meeting 1 2.50 1.25 applause <NA> audience <NA> <NA>
 NON-SPEECH meeting 1 1.25 0.20 um <NA> speaker_beta 0.40 <NA>
 
 ;; Inline note after metadata block
@@ -44,7 +44,6 @@ SPEAKER meeting 1 3.00 1.00 <NA> <NA> speaker_gamma <NA> <NA> ;; overlaps with a
       (null_literal))
     (signal_look_time
       (null_literal)))
-
   (entry
     (event_type)
     (file_id

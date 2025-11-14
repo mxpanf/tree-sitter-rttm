@@ -43,7 +43,11 @@ module.exports = grammar({
       ),
 
     // --- Field Definitions ---
-
+    //
+    // NIST / KWS15 object types.
+    // NOTE:
+    //  - "NON-SPEECH" is the canonical form per KWS15.
+    //  - TURN/FU/SU are kept for RT / MDE-style corpora.
     event_type: ($) =>
       choice(
         "SPKR-INFO",
@@ -54,17 +58,35 @@ module.exports = grammar({
         "SU",
         "LEXEME",
         "NON-LEX",
-        "NON_SPEECH",
         "NON-SPEECH",
+        "NOSCORE",
       ),
     file_id: ($) => choice($.null_literal, $.identifier),
     channel: ($) => choice($.null_literal, $.channel_number),
+    // tbeg, tdur (seconds, >= 0; scientific notation allowed)
     start_time: ($) => choice($.time_value, $.null_literal),
     duration: ($) => choice($.time_value, $.null_literal),
+    // Field 6: ortho
+    //
+    // KWS15: general "orthography" / descriptor.
+    // Convention:
+    //   - for LEXEME / NON-LEX: word / non-lexical token
+    //   - for NON-SPEECH: fine-grained noise label (keyboard, door_slam, music_intro, ...)
     orthography: ($) => choice($.null_literal, $.text_value),
+    // Field 7: stype
+    //
+    // KWS15: subtype; semantics depend on Type.
+    // Convention:
+    //   - for NON-SPEECH: coarse category in {noise, music, other}
+    //   - for other types: free-form subset / demographic tag / classifier.
     speaker_type: ($) => choice($.null_literal, $.text_value),
+    // Field 8: name
+    //
+    // Used as speaker / object label.
     speaker_id: ($) => choice($.null_literal, $.text_value),
+    // Field 9: conf
     confidence: ($) => choice($.null_literal, $.number),
+    // Field 10: Slat (signal lookahead time / legacy scoring field)
     signal_look_time: ($) => choice($.null_literal, $.number),
 
     // --- Base Tokens ---

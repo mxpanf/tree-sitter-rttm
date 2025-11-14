@@ -9,7 +9,7 @@ Edge Cases
 SPEAKER session-A 1 0.0 3e-1 <NA> <NA> speaker-01 0.50 <NA>
 
 ;; 2. Channel omitted via <NA>
-NON_SPEECH session-A <NA> 12 0.5 guitar-feedback stage#noise <NA> <NA> <NA>
+NON-SPEECH session-A <NA> 12 0.5 guitar-feedback stage#noise <NA> <NA> <NA>
 
 ;; 3. Apostrophes and diacritics in orthography
 LEXEME session-A 1 12.5 0.2 can't <NA> speaker-01 0.75 <NA>

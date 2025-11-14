@@ -170,11 +170,11 @@
         },
         {
           "type": "STRING",
-          "value": "NON_SPEECH"
+          "value": "NON-SPEECH"
         },
         {
           "type": "STRING",
-          "value": "NON-SPEECH"
+          "value": "NOSCORE"
         }
       ]
     },

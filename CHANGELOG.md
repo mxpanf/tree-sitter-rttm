@@ -9,6 +9,18 @@ and the project adheres to [Semantic Versioning](https://semver.org/).
 
 - Nothing yet.
 
+## [0.1.1] - 2025-11-14
+
+### Added
+
+- Added parser and metadata support for the `NOSCORE` record type.
+
+### Changed
+
+- Rewrote `RTTM_GUIDE.md` into a strict, NIST-compatible reference that documents the NON-SPEECH extension semantics.
+- Standardized the canonical `NON-SPEECH` token across the grammar, docs, highlights, and fixtures while improving the highlight query captures (event-specific scopes, `<NA>` as a builtin, richer lexical emphasis).
+- Regenerated the grammar JSON, node types, parser sources, and tests with the updated tree-sitter toolchain, bumped every manifest to v0.1.1, and refreshed the Neovim screenshot asset to showcase the new scopes.
+
 ## [0.1.0] - 2025-11-14
 
 ### Added
