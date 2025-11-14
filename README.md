@@ -4,9 +4,9 @@
 ![Tree-sitter ABI](https://img.shields.io/badge/tree--sitter--ABI-15-blue)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.1-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
+
 ![CI](https://github.com/mxpanf/tree-sitter-rttm/actions/workflows/ci.yml/badge.svg)
 ![Deploy](https://github.com/mxpanf/tree-sitter-rttm/actions/workflows/publish.yml/badge.svg)
-
 [![Crates.io - Version](https://img.shields.io/crates/v/tree-sitter-rttm?logo=rust&logoColor=white)](https://crates.io/crates/tree-sitter-rttm)
 [![PyPI - Version](https://img.shields.io/pypi/v/tree-sitter-rttm?logo=pypi&logoColor=white)](https://pypi.org/project/tree-sitter-rttm/)
 
@@ -21,10 +21,10 @@ This parser provides a complete and robust grammar for the standard 10-column RT
 * **Highlighting:** (`queries/highlights.scm`) Provides highlighting queries for editors like Neovim and Helix.
 * **Test Corpus:** (`corpus/`) Includes a rich test suite to ensure correctness.
 
-![DEMO](./examples/neovim.webp)
+![DEMO](https://github.com/mxpanf/tree-sitter-rttm/blob/main/examples/neovim.webp?raw=true)
 
 -----
 
 ### RTTM Format Guide
 
-This parser adheres to the 10-field RTTM specification. For a complete, human-readable breakdown of the format, its fields, and common "dialects" (like `SPEAKER` vs `LEXEME`), please see [the guide](./RTTM_GUIDE.md).
+This parser adheres to the 10-field RTTM specification. For more details please see [the guide](https://github.com/mxpanf/tree-sitter-rttm/blob/main/RTTM_GUIDE.md).
