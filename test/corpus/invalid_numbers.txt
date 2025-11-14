@@ -1,0 +1,59 @@
+================================
+Invalid Numeric Values
+================================
+
+;; Negative onset should be rejected.
+SPEAKER session-A 1 -0.1 0.5 <NA> <NA> speaker-ERR <NA> <NA>
+
+;; Negative duration should be rejected.
+SPEAKER session-A 1 0.1 -0.5 <NA> <NA> speaker-ERR <NA> <NA>
+
+----
+
+(source_file
+  (comment)
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (ERROR
+      (number))
+    (start_time
+      (time_value))
+    (duration
+      (null_literal))
+    (orthography
+      (null_literal))
+    (speaker_type
+      (text_value))
+    (speaker_id
+      (null_literal))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (MISSING number)))
+  (comment)
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (ERROR
+      (number))
+    (duration
+      (null_literal))
+    (orthography
+      (null_literal))
+    (speaker_type
+      (text_value))
+    (speaker_id
+      (null_literal))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (MISSING number))))
