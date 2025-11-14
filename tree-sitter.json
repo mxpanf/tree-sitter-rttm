@@ -6,9 +6,7 @@
       "camelcase": "RTTM",
       "title": "Rich Transcription Time Marked",
       "scope": "source.rttm",
-      "file-types": [
-        "rttm"
-      ],
+      "file-types": ["rttm"],
       "injection-regex": "^rttm$",
       "class-name": "TreeSitterRttm"
     }
@@ -35,7 +33,7 @@
     "node": true,
     "python": true,
     "rust": true,
-    "swift": true,
+    "swift": false,
     "zig": false
   }
 }
