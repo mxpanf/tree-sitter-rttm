@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-rttm"
 description = "A Tree-sitter grammar for RTTM files"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Maksim Panfilov <maks@panf.me>"]
 license = "MIT"
 readme = "README.md"

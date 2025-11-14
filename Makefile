@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-rttm
 HOMEPAGE_URL := https://github.com/mxpanf/tree-sitter-rttm
-VERSION := 0.1.0
+VERSION := 0.1.1
 
 # repository
 SRC_DIR := src
