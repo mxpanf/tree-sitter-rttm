@@ -18,9 +18,3 @@ jobs:
     uses: tree-sitter/workflows/.github/workflows/package-pypi.yml@main
     secrets:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-
-  go:
-    uses: tree-sitter/workflows/.github/workflows/package-go.yml@main
-
-  c:
-    uses: tree-sitter/workflows/.github/workflows/package-c.yml@main
