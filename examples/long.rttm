@@ -1,0 +1,138 @@
+;; ============================================================
+;; DEMO RTTM FOR HIGHLIGHTING / PARSER TESTING
+;; Covers: SPEAKER, LEXEME, NON-SPEECH, NON-LEX, SPKR-INFO,
+;;         SEGMENT, TURN, FU, SU, NOSCORE, multiple files,
+;;         multiple channels, <NA> patterns, inline comments.
+;; ============================================================
+
+;; =========================
+;; FILE: meeting_A
+;; =========================
+
+SPKR-INFO meeting_A <NA> <NA> <NA> spkA adult male <NA> <NA>
+SPKR-INFO meeting_A <NA> <NA> <NA> spkB adult female <NA> <NA>
+SPKR-INFO meeting_A <NA> <NA> <NA> spkC child <NA> <NA> <NA>
+
+SEGMENT meeting_A 1 0.00 60.00 roomA <NA> scene_main <NA> <NA>
+SEGMENT meeting_A 1 0.00 30.00 intro <NA> section_1 <NA> <NA>
+SEGMENT meeting_A 1 30.00 30.00 discussion <NA> section_2 <NA> <NA>
+
+TURN meeting_A 1 0.00 3.50 turn_0001 <NA> spkA <NA> <NA>
+TURN meeting_A 1 3.50 7.20 turn_0002 <NA> spkB <NA> <NA>
+TURN meeting_A 1 7.20 10.10 turn_0003 <NA> spkA <NA> <NA>
+
+SPEAKER meeting_A 1 0.00 2.00 <NA> <NA> spkA <NA> <NA>
+SPEAKER meeting_A 1 2.00 4.50 <NA> <NA> spkB <NA> <NA>
+SPEAKER meeting_A 1 4.50 7.00 <NA> <NA> spkA <NA> <NA>
+SPEAKER meeting_A 1 7.00 10.00 <NA> <NA> spkC <NA> <NA>
+SPEAKER meeting_A 1 10.00 15.50 <NA> <NA> spkB <NA> <NA>
+SPEAKER meeting_A 1 15.50 21.00 <NA> <NA> spkA <NA> <NA>
+
+LEXEME meeting_A 1 0.10 0.20 hello <NA> spkA 0.98 <NA>
+LEXEME meeting_A 1 0.35 0.22 everyone <NA> spkA 0.95 <NA>
+LEXEME meeting_A 1 0.70 0.18 welcome <NA> spkA 0.93 <NA>
+LEXEME meeting_A 1 1.05 0.25 to <NA> spkA 0.92 <NA>
+LEXEME meeting_A 1 1.35 0.30 meeting <NA> spkA 0.96 <NA>
+LEXEME meeting_A 1 3.80 0.25 yes <NA> spkB 0.91 <NA>
+LEXEME meeting_A 1 4.10 0.30 i <NA> spkB 0.90 <NA>
+LEXEME meeting_A 1 4.42 0.28 agree <NA> spkB 0.89 <NA>
+
+NON-LEX meeting_A 1 2.20 0.35 laughter <NA> spkA 0.80 <NA>
+NON-LEX meeting_A 1 5.10 0.25 cough <NA> spkB 0.75 <NA>
+NON-LEX meeting_A 1 8.50 0.40 breath <NA> spkC 0.70 <NA>
+NON-LEX meeting_A 1 9.20 0.30 laughter <NA> spkC 0.82 <NA>
+
+NON-SPEECH meeting_A 1 0.00 0.80 air_conditioner noise <NA> 0.40 <NA>
+NON-SPEECH meeting_A 1 0.80 0.50 keyboard_clicks noise <NA> 0.60 <NA>
+NON-SPEECH meeting_A 1 10.00 5.00 background_music music <NA> 0.85 <NA>
+NON-SPEECH meeting_A 1 15.50 0.60 door_slam noise <NA> 0.55 <NA>
+NON-SPEECH meeting_A 1 20.00 1.20 traffic_outside noise <NA> 0.50 <NA>
+NON-SPEECH meeting_A 1 27.00 2.50 applause other <NA> 0.88 <NA>
+
+FU meeting_A 1 0.10 0.40 backchannel <NA> spkB <NA> <NA>
+FU meeting_A 1 3.80 0.60 statement <NA> spkB <NA> <NA>
+FU meeting_A 1 4.50 0.50 question <NA> spkC <NA> <NA>
+FU meeting_A 1 5.50 0.70 repair <NA> spkA <NA> <NA>
+
+SU meeting_A 1 0.10 1.50 opening <NA> spkA <NA> <NA>
+SU meeting_A 1 3.80 2.40 agreement <NA> spkB <NA> <NA>
+SU meeting_A 1 6.50 3.50 explanation <NA> spkA <NA> <NA>
+
+NOSCORE meeting_A 1 25.00 5.00 <NA> <NA> <NA> <NA> <NA> ;; ignore this region in scoring
+
+;; =========================
+;; FILE: meeting_B
+;; =========================
+
+SPKR-INFO meeting_B <NA> <NA> <NA> spkD adult female <NA> <NA>
+SPKR-INFO meeting_B <NA> <NA> <NA> spkE adult male <NA> <NA>
+
+SEGMENT meeting_B 1 0.00 45.00 roomB <NA> main_scene <NA> <NA>
+SEGMENT meeting_B 2 0.00 45.00 roomB_channel2 <NA> main_scene <NA> <NA>
+
+TURN meeting_B 1 0.00 5.00 turn_1001 <NA> spkD <NA> <NA>
+TURN meeting_B 2 0.00 5.00 turn_2001 <NA> spkE <NA> <NA>
+
+SPEAKER meeting_B 1 0.00 4.00 <NA> <NA> spkD <NA> <NA>
+SPEAKER meeting_B 2 0.00 4.00 <NA> <NA> spkE <NA> <NA>
+SPEAKER meeting_B 1 4.00 8.00 <NA> <NA> spkE <NA> <NA>
+SPEAKER meeting_B 2 4.00 8.00 <NA> <NA> spkD <NA> <NA>
+
+LEXEME meeting_B 1 0.15 0.20 okay <NA> spkD 0.97 <NA>
+LEXEME meeting_B 1 0.40 0.18 so <NA> spkD 0.95 <NA>
+LEXEME meeting_B 1 0.65 0.30 today <NA> spkD 0.94 <NA>
+LEXEME meeting_B 1 0.98 0.25 we <NA> spkD 0.93 <NA>
+LEXEME meeting_B 1 1.25 0.30 discuss <NA> spkD 0.92 <NA>
+LEXEME meeting_B 1 1.60 0.28 budget <NA> spkD 0.91 <NA>
+LEXEME meeting_B 2 4.10 0.25 yes <NA> spkE 0.93 <NA>
+LEXEME meeting_B 2 4.40 0.30 agreed <NA> spkE 0.92 <NA>
+
+NON-LEX meeting_B 1 2.20 0.30 laughter <NA> spkD 0.78 <NA>
+NON-LEX meeting_B 2 2.50 0.25 cough <NA> spkE 0.74 <NA>
+
+NON-SPEECH meeting_B 1 0.00 1.50 projector_fan noise <NA> 0.45 <NA>
+NON-SPEECH meeting_B 1 5.00 3.00 coffee_machine noise <NA> 0.70 <NA>
+NON-SPEECH meeting_B 1 8.50 4.00 lobby_music music <NA> 0.83 <NA>
+NON-SPEECH meeting_B 2 0.00 1.50 projector_fan noise <NA> 0.45 <NA>
+NON-SPEECH meeting_B 2 10.00 2.00 hallway_steps other <NA> 0.60 <NA>
+
+FU meeting_B 1 0.15 0.45 opening <NA> spkD <NA> <NA>
+FU meeting_B 1 1.25 0.60 statement <NA> spkD <NA> <NA>
+FU meeting_B 2 4.10 0.55 confirmation <NA> spkE <NA> <NA>
+
+SU meeting_B 1 0.15 2.00 intro <NA> spkD <NA> <NA>
+SU meeting_B 1 2.00 5.00 main_point <NA> spkD <NA> <NA>
+SU meeting_B 2 4.10 2.50 agreement <NA> spkE <NA> <NA>
+
+NOSCORE meeting_B 1 20.00 10.00 <NA> <NA> <NA> <NA> <NA>
+NOSCORE meeting_B 2 20.00 10.00 <NA> <NA> <NA> <NA> <NA>
+
+;; =========================
+;; FILE: noisy_street (edge cases, dense NON-SPEECH)
+;; =========================
+
+SPKR-INFO noisy_street <NA> <NA> <NA> spkStreet adult <NA> <NA> <NA>
+
+SEGMENT noisy_street 1 0.00 30.00 street_scene <NA> outdoor <NA> <NA>
+
+SPEAKER noisy_street 1 0.00 4.00 <NA> <NA> spkStreet <NA> <NA>
+SPEAKER noisy_street 1 4.00 8.00 <NA> <NA> spkStreet <NA> <NA>
+SPEAKER noisy_street 1 8.00 12.00 <NA> <NA> spkStreet <NA> <NA>
+
+LEXEME noisy_street 1 0.20 0.25 hello <NA> spkStreet 0.80 <NA>
+LEXEME noisy_street 1 0.50 0.30 can <NA> spkStreet 0.78 <NA>
+LEXEME noisy_street 1 0.85 0.30 you <NA> spkStreet 0.76 <NA>
+LEXEME noisy_street 1 1.20 0.40 hear <NA> spkStreet 0.75 <NA>
+LEXEME noisy_street 1 1.70 0.35 me <NA> spkStreet 0.74 <NA>
+
+NON-SPEECH noisy_street 1 0.00 2.00 traffic_heavy noise <NA> 0.60 <NA>
+NON-SPEECH noisy_street 1 2.00 1.50 horns noise <NA> 0.65 <NA>
+NON-SPEECH noisy_street 1 3.50 2.50 siren noise <NA> 0.70 <NA>
+NON-SPEECH noisy_street 1 6.00 4.00 street_music music <NA> 0.80 <NA>
+NON-SPEECH noisy_street 1 10.50 3.00 crowd_shouting noise <NA> 0.72 <NA>
+NON-SPEECH noisy_street 1 15.00 2.00 dog_bark other <NA> 0.68 <NA>
+
+NON-LEX noisy_street 1 1.50 0.30 cough <NA> spkStreet 0.65 <NA>
+NON-LEX noisy_street 1 7.00 0.40 breath <NA> spkStreet 0.60 <NA>
+
+NOSCORE noisy_street 1 20.00 5.00 <NA> <NA> <NA> <NA> <NA> ;; scoring excluded tail
