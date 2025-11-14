@@ -7,56 +7,30 @@
 (event_type) @keyword
 
 ;; File/channel IDs
-(file_id) @constant
-(
-  (file_id) @comment
-  (#match? @comment "^<NA>$")
-)
+(file_id (identifier) @constant)
+(file_id (null_literal) @comment)
 
-(channel) @property
-(
-  (channel) @comment
-  (#match? @comment "^<NA>$")
-)
+(channel (channel_number) @number)
+(channel (null_literal) @comment)
 
 ;; Timing fields
-(start_time) @number
-(duration) @number
+(start_time (time_value) @time_value)
+(duration (time_value) @time_value)
 
 ;; Orthography / textual metadata
-(orthography
-  (_field
-    (_identifier) @string))
-(orthography
-  (_field
-    (_null) @comment))
+(orthography (text_value) @string)
+(orthography (null_literal) @comment)
 
-(speaker_type
-  (_field
-    (_identifier) @string))
-(speaker_type
-  (_field
-    (_null) @comment))
+(speaker_type (text_value) @type)
+(speaker_type (null_literal) @comment)
 
-(signal_look_time
-  (_field
-    (_identifier) @string))
-(signal_look_time
-  (_field
-    (_null) @comment))
+(signal_look_time (number) @number)
+(signal_look_time (null_literal) @comment)
 
 ;; Speaker identifiers: treat "real" IDs as constants, <NA> as comments.
-(speaker_id
-  (_field
-    (_identifier) @constant))
-(speaker_id
-  (_field
-    (_null) @comment))
+(speaker_id (text_value) @constant)
+(speaker_id (null_literal) @comment)
 
 ;; Confidence scores (number or <NA>)
-(confidence
-  (_number_or_na
-    (_number) @number))
-(confidence
-  (_number_or_na
-    (_null) @comment))
+(confidence (number) @number)
+(confidence (null_literal) @comment)

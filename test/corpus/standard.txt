@@ -3,13 +3,13 @@ Standard RTTM Entries
 ================================
 
 ;; 1. Standard Speaker Diarization Entry
-SPEAKER file_001 1 10.5 2.75 <NA> <NA> spk_0 0.95 <NA>
+SPEAKER file_001 1 10.5 2.75 <NA> adult speaker_alpha 0.95 <NA>
 
 ;; 2. Standard Non-Speech Entry
-NON_SPEECH file_001 1 13.25 1.0 music <NA> music_1 <NA> <NA>
+NON_SPEECH file_001 1 13.25 1.0 car-horn <NA> noise_event <NA> <NA>
 
 ;; 3. Standard Lexeme (ASR) Entry
-LEXEME file_001 1 10.5 0.3 hello <NA> spk_0 0.98 <NA>
+LEXEME file_001 1 10.5 0.3 café <NA> speaker_alpha 0.98 <NA>
 
 ----
 
@@ -17,66 +17,63 @@ LEXEME file_001 1 10.5 0.3 hello <NA> spk_0 0.98 <NA>
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (text_value))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_number)))
+      (number))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_identifier)))
+      (text_value))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_null)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_identifier)))
+      (text_value))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_number)))
+      (number))
     (signal_look_time
-      (_field
-        (_null)))))
+      (null_literal))))

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "rttm",
   "rules": {
     "source_file": {
@@ -13,12 +12,38 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "comment"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "entry"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "PATTERN",
+                      "value": "[ \\t]+"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "comment"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "SYMBOL",
-          "name": "entry"
+          "name": "comment"
         }
       ]
     },
@@ -26,44 +51,84 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "event_type"
+          "type": "FIELD",
+          "name": "event_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "event_type"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "file_id"
+          "type": "FIELD",
+          "name": "file_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "file_id"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "channel"
+          "type": "FIELD",
+          "name": "channel",
+          "content": {
+            "type": "SYMBOL",
+            "name": "channel"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "start_time"
+          "type": "FIELD",
+          "name": "start_time",
+          "content": {
+            "type": "SYMBOL",
+            "name": "start_time"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "duration"
+          "type": "FIELD",
+          "name": "duration",
+          "content": {
+            "type": "SYMBOL",
+            "name": "duration"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "orthography"
+          "type": "FIELD",
+          "name": "orthography",
+          "content": {
+            "type": "SYMBOL",
+            "name": "orthography"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "speaker_type"
+          "type": "FIELD",
+          "name": "speaker_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "speaker_type"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "speaker_id"
+          "type": "FIELD",
+          "name": "speaker_id",
+          "content": {
+            "type": "SYMBOL",
+            "name": "speaker_id"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "confidence"
+          "type": "FIELD",
+          "name": "confidence",
+          "content": {
+            "type": "SYMBOL",
+            "name": "confidence"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "signal_look_time"
+          "type": "FIELD",
+          "name": "signal_look_time",
+          "content": {
+            "type": "SYMBOL",
+            "name": "signal_look_time"
+          }
         }
       ]
     },
@@ -72,7 +137,35 @@
       "members": [
         {
           "type": "STRING",
+          "value": "SPKR-INFO"
+        },
+        {
+          "type": "STRING",
+          "value": "TURN"
+        },
+        {
+          "type": "STRING",
+          "value": "SEGMENT"
+        },
+        {
+          "type": "STRING",
           "value": "SPEAKER"
+        },
+        {
+          "type": "STRING",
+          "value": "FU"
+        },
+        {
+          "type": "STRING",
+          "value": "SU"
+        },
+        {
+          "type": "STRING",
+          "value": "LEXEME"
+        },
+        {
+          "type": "STRING",
+          "value": "NON-LEX"
         },
         {
           "type": "STRING",
@@ -80,135 +173,162 @@
         },
         {
           "type": "STRING",
-          "value": "LEXEME"
+          "value": "NON-SPEECH"
         }
       ]
     },
     "file_id": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "<NA>"
-          },
-          {
-            "type": "PATTERN",
-            "value": "[A-Za-z0-9._-]+"
-          }
-        ]
-      }
-    },
-    "channel": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "<NA>"
-          },
-          {
-            "type": "PATTERN",
-            "value": "[A-Za-z0-9._-]+"
-          }
-        ]
-      }
-    },
-    "start_time": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\\d+(\\.\\d+)?"
-      }
-    },
-    "duration": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "\\d+(\\.\\d+)?"
-      }
-    },
-    "orthography": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "field_value"
-          },
-          "named": true,
-          "value": "_field"
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "channel": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "channel_number"
+        }
+      ]
+    },
+    "start_time": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "time_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "null_literal"
+        }
+      ]
+    },
+    "duration": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "time_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "null_literal"
+        }
+      ]
+    },
+    "orthography": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_value"
         }
       ]
     },
     "speaker_type": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "field_value"
-          },
-          "named": true,
-          "value": "_field"
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_value"
         }
       ]
     },
     "speaker_id": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "field_value"
-          },
-          "named": true,
-          "value": "_field"
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_value"
         }
       ]
     },
     "confidence": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "number_or_na_value"
-          },
-          "named": true,
-          "value": "_number_or_na"
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
         }
       ]
     },
     "signal_look_time": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "field_value"
-          },
-          "named": true,
-          "value": "_field"
+          "type": "SYMBOL",
+          "name": "null_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
         }
       ]
     },
     "comment": {
-      "type": "PATTERN",
-      "value": ";;.*"
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": ";;"
+          },
+          {
+            "type": "PATTERN",
+            "value": ".*"
+          }
+        ]
+      }
+    },
+    "channel_number": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+"
+      }
+    },
+    "time_value": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\d+(?:\\.\\d+)?(?:[eE][-+]?\\d+)?"
+      }
     },
     "number": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "\\d+(\\.\\d+)?"
+        "value": "-?\\d+(?:\\.\\d+)?(?:[eE][-+]?\\d+)?"
       }
     },
     "identifier": {
@@ -218,65 +338,16 @@
         "value": "[A-Za-z0-9._-]+"
       }
     },
+    "text_value": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\s;]+"
+      }
+    },
     "null_literal": {
       "type": "STRING",
       "value": "<NA>"
-    },
-    "field_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "null_literal"
-              },
-              "named": true,
-              "value": "_null"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
-              },
-              "named": true,
-              "value": "_identifier"
-            }
-          ]
-        }
-      ]
-    },
-    "number_or_na_value": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "null_literal"
-              },
-              "named": true,
-              "value": "_null"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              },
-              "named": true,
-              "value": "_number"
-            }
-          ]
-        }
-      ]
     }
   },
   "extras": [
@@ -289,6 +360,6 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": [],
-  "reserved": {}
+  "supertypes": []
 }
+

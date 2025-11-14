@@ -3,14 +3,21 @@ Mixed Dialects
 ================================
 
 ;; RTTM Corpus Test File
-;; Standard entries plus inline comment coverage.
+;; Expanded entries with metadata-oriented records.
 
-SPEAKER file_ABC 1 30.5 2.5 <NA> <NA> spk_0 0.95 <NA>
-NON_SPEECH file_ABC 1 33.0 1.0 music <NA> music_1 <NA> <NA>
-LEXEME file_ABC 1 35.1 0.25 hello <NA> spk_0 0.88 <NA>
+SPKR-INFO meeting 1 <NA> <NA> speaker_alpha adult en_US <NA> <NA>
+TURN meeting 1 0.00 2.50 <NA> floor speaker_alpha <NA> <NA>
+SEGMENT meeting 1 0.00 2.50 <NA> <NA> speaker_alpha <NA> <NA>
+SPEAKER meeting 1 0.00 2.50 <NA> <NA> speaker_alpha 0.85 <NA>
+FU meeting 1 0.00 0.80 backchannel <NA> speaker_beta <NA> <NA>
+SU meeting 1 0.00 2.50 statement <NA> speaker_alpha <NA> <NA>
+LEXEME meeting 1 0.10 0.30 roadmap <NA> speaker_alpha 0.92 <NA>
+NON-LEX meeting 1 0.45 0.15 laughter <NA> speaker_alpha <NA> <NA>
+NON_SPEECH meeting 1 2.50 1.25 applause <NA> audience <NA> <NA>
+NON-SPEECH meeting 1 1.25 0.20 um <NA> speaker_beta 0.40 <NA>
 
-;; Inline note after diarization entry
-SPEAKER file_ABC 1 40 1 <NA> <NA> spk_1 <NA> <NA> ;; overlaps with music
+;; Inline note after metadata block
+SPEAKER meeting 1 3.00 1.00 <NA> <NA> speaker_gamma <NA> <NA> ;; overlaps with applause
 
 ----
 
@@ -19,87 +26,224 @@ SPEAKER file_ABC 1 40 1 <NA> <NA> spk_1 <NA> <NA> ;; overlaps with music
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (null_literal))
+    (duration
+      (null_literal))
     (orthography
-      (_field
-        (_null)))
+      (text_value))
     (speaker_type
-      (_field
-        (_null)))
+      (text_value))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_number)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
+
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_identifier)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (text_value))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_null)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_identifier)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_number)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (null_literal))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (number))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (number))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (null_literal))
+    (signal_look_time
+      (null_literal)))
+  (entry
+    (event_type)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
+    (orthography
+      (text_value))
+    (speaker_type
+      (null_literal))
+    (speaker_id
+      (text_value))
+    (confidence
+      (number))
+    (signal_look_time
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_null)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment))

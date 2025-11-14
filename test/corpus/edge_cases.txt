@@ -5,17 +5,17 @@ Edge Cases
 ;; Test file for valid edge cases.
 ;; This checks tricky but valid inputs.
 
-;; 1. Fields with dashes and underscores (testing '_field')
-SPEAKER my_file-01 1 0.0 10.0 <NA> <NA> spk_name-with_dash-and_nums_01 <NA> <NA>
+;; 1. Scientific notation for durations
+SPEAKER session-A 1 0.0 3e-1 <NA> <NA> speaker-01 0.50 <NA>
 
-;; 2. Numbers without decimal parts (integers) (testing '_number')
-SPEAKER file_02 1 15 3 <NA> <NA> spk_0 1 <NA>
+;; 2. Channel omitted via <NA>
+NON_SPEECH session-A <NA> 12 0.5 guitar-feedback stage#noise <NA> <NA> <NA>
 
-;; 3. <NA> used in the 'channel' field (which uses '_field')
-SPEAKER file_03 <NA> 20.0 1.5 <NA> <NA> spk_1 <NA> <NA>
+;; 3. Apostrophes and diacritics in orthography
+LEXEME session-A 1 12.5 0.2 can't <NA> speaker-01 0.75 <NA>
 
-;; 4. <NA> used in the 'confidence' field (testing '_number_or_na')
-SPEAKER file_04 1 22.0 1.0 <NA> <NA> spk_1 <NA> <NA>
+;; 4. Numeric signal lookahead time and rich speaker type token
+SPEAKER session-A 1 15.0 2.0 <NA> bilingual/fr <NA> <NA> 1.5
 
 ----
 
@@ -25,88 +25,84 @@ SPEAKER file_04 1 22.0 1.0 <NA> <NA> spk_1 <NA> <NA>
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_null)))
+      (number))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (null_literal))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (text_value))
     (speaker_type
-      (_field
-        (_null)))
+      (text_value))
     (speaker_id
-      (_field
-        (_identifier)))
+      (null_literal))
     (confidence
-      (_number_or_na
-        (_number)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (text_value))
     (speaker_type
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_id
-      (_field
-        (_identifier)))
+      (text_value))
     (confidence
-      (_number_or_na
-        (_null)))
+      (number))
     (signal_look_time
-      (_field
-        (_null))))
+      (null_literal)))
   (comment)
   (entry
     (event_type)
-    (file_id)
-    (channel)
-    (start_time)
-    (duration)
+    (file_id
+      (identifier))
+    (channel
+      (channel_number))
+    (start_time
+      (time_value))
+    (duration
+      (time_value))
     (orthography
-      (_field
-        (_null)))
+      (null_literal))
     (speaker_type
-      (_field
-        (_null)))
+      (text_value))
     (speaker_id
-      (_field
-        (_identifier)))
+      (null_literal))
     (confidence
-      (_number_or_na
-        (_null)))
+      (null_literal))
     (signal_look_time
-      (_field
-        (_null)))))
+      (number))))
