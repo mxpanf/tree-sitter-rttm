@@ -1,12 +1,11 @@
 # Tree Sitter RTTM
 
-[![LICENSE](https://img.shields.io/gitlab/license/mxp-studying/mirea/artificial-intelligence-methods?logo=opensourceinitiative&logoColor=white)](./LICENSE)
+[![LICENSE](https://img.shields.io/github/license/mxpanf/tree-sitter-rttm?logo=opensourceinitiative&logoColor=white&color=999999)](./LICENSE)
 ![Tree-sitter ABI](https://img.shields.io/badge/tree--sitter--ABI-15-blue)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.1-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 
 ![CI](https://github.com/mxpanf/tree-sitter-rttm/actions/workflows/ci.yml/badge.svg)
-![Deploy](https://github.com/mxpanf/tree-sitter-rttm/actions/workflows/publish.yml/badge.svg)
 [![Crates.io - Version](https://img.shields.io/crates/v/tree-sitter-rttm?logo=rust&logoColor=white)](https://crates.io/crates/tree-sitter-rttm)
 [![PyPI - Version](https://img.shields.io/pypi/v/tree-sitter-rttm?logo=pypi&logoColor=white)](https://pypi.org/project/tree-sitter-rttm/)
 
